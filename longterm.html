@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeScript Tutorial</title>
+  <link rel="stylesheet" href="longterm.css">
+</head>
+<body>
+
+  <div class="wrapper">
+    <h1>Expense Tracker</h1>
+
+    <!-- output list -->
+    
+    
+  </div>
+
+  <footer>
+    <div class="heading">
+        Longterm Investments
+    </div>
+    <form class="new-item-form">
+      <div class="field">
+        <label>Money:</label>
+        <select id="type">
+          <option value="assets">Asset Acquired</option>
+          <option value="invest" >Investment Made</option>
+          <option value="lone">Loans</option>
+          <option value="insurans">Insurance</option>
+          <option value="tax">Tax Deducted</option>
+
+        </select>
+      </div>  
+      <div class="field">
+        <label>Category:</label>
+        <select id="taxcat" class="hide">
+            <option value="incometax">Income Tax</option>
+            <option value="propertytax">Property Tax</option>
+            <option value="wealthtax">Wealth Tax</option>
+            <option value="servicetax">Service Tax</option>
+        </select>
+        <select id="asscat">
+            <option value="land">Property</option>
+            <option value="vehicles">Vehicles</option>
+            <option value="Jewelerry">Gold/Jewellery</option>
+        </select>
+        <select id="investment" class="hide">
+            <option value="stock">Equity</option>
+            <option value="gold">Gold Investment</option>
+            <option value="crypto">Crypto Currency</option>
+            <option value="fd">Fixed Deposit</option>
+        </select>
+        <select id="insurance" class="hide">
+            <option value="life">Life Insurance</option>
+            <option value="health">Health Insurance</option>
+            <option value="property">Property Insurance</option>
+            <option value="motor">Motor Insurance</option>
+        </select>
+        <select id="loans" class="hide">
+            <option value="home">Home Loans</option>
+            <option value="education">Education Loans</option>
+            <option value="automobile">Vehicle Loans</option>
+        </select>
+      </div> 
+      <div class="field">
+        <label>Details:</label>
+        <input type="text" id="details">
+      </div>
+      <div class="field">
+        <label>Amount <span id="underline">(in INR)</span>:</label>
+        <input type="number" id="amount">
+      </div><br>
+      <button class="subbutt">Add To Log</button>
+    </form>
+    <a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/home.html"><b>Back To Home</b></a>
+  </footer>
+  
+    
+  
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+  <script src='longterm.js'></script>
+</body>
+</html>

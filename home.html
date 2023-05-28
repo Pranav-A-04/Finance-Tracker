@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homecss.css">
+    <title>HOME</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    
+    
+</head>
+<body>
+
+    <div class="headiv">
+        <h1 class="headings">HOME</h1>
+ </div>
+    <ul>
+        <a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/fllogin.html">
+            <button class="signoutbutt" onclick="signout()">Sign Out</button>
+        </a>
+      
+        <li><a /*href="#home"*/>HOME</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">CONTACT US</a>
+            <div class="dropdown-content">
+              <br>Contact us :9845361837</br>
+              <br>Find us on instagram : @financelog</br>
+              <br>Email us :help@financelog.org</br>
+            </div>
+        </li>
+
+         <!-- <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Customer Care</a>
+            <div class="dropdown-content">
+              <a href="form1.html" onclick="openc1();">Report Fraud</a>
+              <a href="form2.html">Give feedback</a>
+            </div>
+        </li> -->
+
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">ABOUT US</a>
+            <div class="dropdown-content">
+              <p>Welcome to our finance tracking app! We are a cutting-edge platform 
+                designed to help you manage your personal finances with ease and efficiency. <br>
+                Our goal is to empower you to take control of your financial well-being by providing intuitive tools<br> 
+                and valuable insights.<br>
+                At our core, we believe that financial management should be simple, accessible, and personalized.<br> 
+                We understand that everyone has unique financial goals and circumstances, so we strive to offer a<br>
+                flexible and customizable experience to meet your specific needs.<br></p>
+            </div>
+        </li>
+
+    </ul>
+
+    <div class="NavPage">
+        <div class="dropdown">
+        <a href=""> 
+            <button class="navbut">TRANSACTIONS</button>
+        </a>
+        <i class="fa fa-caret-down"></i>
+        <div class="dropdown-content">
+            <a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/expenses.html">Daily Expenses</a>
+            <a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/longterm.html">Longterm Investments</a>
+            
+        </div>
+        </div>
+        <a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/budget.html"> <button  class="navbut">BUDGET TRACKER</button></a>
+        <a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/fin.html"> <button  class="navbut" >FINANCIAL INSIGHT</button></a>
+    </div>
+    <div class="c">
+        <canvas id="myChart" style="width:100%;max-width:600px;color:black;"></canvas><br><br><br><br><br>
+        <canvas id="mybalChart" style="width:100%;max-width:600px"></canvas>
+    </div>
+    
+    
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <script> 
+    const firebaseConfig = {
+        apiKey: "AIzaSyBp3_6EMBqSrcIltJnohON3UGc6ID9Mmfw",
+        authDomain: "customerlogin-eec4f.firebaseapp.com",
+        databaseURL: "https://customerlogin-eec4f-default-rtdb.firebaseio.com",
+        projectId: "customerlogin-eec4f",
+        storageBucket: "customerlogin-eec4f.appspot.com",
+        messagingSenderId: "726508662593",
+        appId: "1:726508662593:web:962e4bc86c02baac6c7bc0",
+        measurementId: "G-2PKKM43YE2"
+    };
+    
+    firebase.initializeApp(firebaseConfig); 
+    const db = firebase.database();
+    var dbref = db.ref();
+
+    function getall(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var sumval=[];
+            let groc=0;
+            let din=0;
+            let trav=0;
+            let sub=0;
+            let rent=0;
+            let loan=0;
+            let bill=0;
+            let ot=0;
+            
+            
+            snapshot.forEach(childSnapshot =>{
+                if(childSnapshot.val().category == "groceries"){
+                    groc = groc+Number(childSnapshot.val().amount);
+
+                }
+                else if(childSnapshot.val().category == "travel"){
+                    trav +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "dining"){
+                    din +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "subs"){
+                    sub +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "rent"){
+                    rent +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "lent"){
+                    loan +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "bills"){
+                    bill += Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "others"){
+                    ot += Number(childSnapshot.val().amount);
+                }
+            })
+
+            sumval.push(groc, trav, din, sub, rent, loan, bill, ot);
+            console.log(sumval);
+            var xValues = ["Groceries", "Travel", "Dining", "Subscription", "Rent","Loan","Bills","Others"];
+            var yValues = sumval;
+            var barColors = [
+            "#99004C",
+            "#660066",
+            "#cc6600",
+            "#006666",
+            "#0066cc",
+            "#4c0099",
+            "#FFC312",
+            "#50adc4"
+        ];
+
+        new Chart("myChart", {
+        type: "pie",
+        data: {
+        labels: xValues,
+        datasets: [{ 
+        backgroundColor: barColors,
+        data: yValues, 
+        
+        }]
+        },
+        options: {
+        title: {
+        display: true,
+        text: "Expenses"
+    }
+    }
+    });
+
+          })
+    }
+
+    getall();
+
+    function getbal(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var sumval=[];
+            let groc=0;
+            let din=0;
+            let trav=0;
+            let sub=0;
+            let rent=0;
+            let loan=0;
+            let bill=0;
+            let ot=0;
+            
+            
+            snapshot.forEach(childSnapshot =>{
+                if(childSnapshot.val().category == "groceries"){
+                    groc = groc+Number(childSnapshot.val().amount);
+
+                }
+                else if(childSnapshot.val().category == "travel"){
+                    trav +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "dining"){
+                    din +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "subs"){
+                    sub +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "rent"){
+                    rent +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "lent"){
+                    loan +=Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "bills"){
+                    bill += Number(childSnapshot.val().amount);
+                }
+                else if(childSnapshot.val().category == "others"){
+                    ot += Number(childSnapshot.val().amount);
+                }
+            })
+
+            var sp=groc+trav+din+sub+rent+loan+bill+ot;
+            console.log(sp);
+
+            dbref.child('income').get()
+            .then((snapshot)=>{
+                var balval=0;
+                snapshot.forEach(childSnapshot =>{
+                    balval+=Number(childSnapshot.val().amount)
+
+                })
+            console.log(balval);
+
+            dbref.child('received').get()
+            .then((snapshot)=>{
+                var recval=0;
+                snapshot.forEach(childSnapshot =>{
+                    recval+=Number(childSnapshot.val().amount)
+
+                })
+            console.log(recval);
+                var notsp=balval+recval-sp;
+
+            sumval.push(groc, trav, din, sub, rent, loan, bill, ot,notsp);
+            console.log(sumval);
+            var xValues = ["Groceries", "Travel", "Dining", "Subscription", "Rent","Loan","Bills","Others","Notspent"];
+            var yValues = sumval;
+            var barColors = [
+            "#99004C",
+            "#660066",
+            "#cc6600",
+            "#006666",
+            "#0066cc",
+            "#4c0099",
+            "#FFC312",
+            "#50adc4",
+            "#FF0000"
+        ];
+
+        new Chart("mybalChart", {
+        type: "pie",
+        data: {
+        labels: xValues,
+        datasets: [{ 
+        backgroundColor: barColors,
+        data: yValues, 
+        
+        }]
+        },
+        options: {
+        title: {
+        display: true,
+        text: "Balances"
+    }
+    }
+    });
+
+          })
+        })
+    })
+}
+
+    getbal();
+    
+
+    </script>
+    
+
+</body>
+
+</div>
+</body> 
+</html>

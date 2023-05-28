@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TypeScript Tutorial</title>
+  <link rel="stylesheet" href="expenses.css">
+</head>
+<body>
+
+  <div class="wrapper">
+    <h1>Expense Tracker</h1>
+
+    <!-- output list -->
+      <div class = 'track'>
+        <ul class="item-list">
+
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+
+  <footer>
+    <div class="heading">
+        Daily Expenses
+    </div>
+    <form class="new-item-form">
+      <div class="field">
+        <label>Money:</label>
+        <select id="type">
+          <option value="owed">Money Owed To Me</option>
+          <option value="incoming">Received</option>
+          <option value="outgoing">Spent</option>
+          <option value="income">Income</option>
+          
+        </select>
+      </div>
+      <div class="field">
+        <label>To / From:</label>
+        <input type="text" id="tofrom">
+      </div>  
+      <div class="field">
+        <label>category:</label>
+        <select id="category">
+            <option value="groceries">Groceries</option>
+            <option value="dining">Dining Out</option>
+            <option value="travel">Travel</option>
+            <option value="bills">Bills</option>
+            <option value="subs">Subscriptions(OTT platforms)</option>
+            <option value="rent">Rent</option>
+            <option value="lent">Loaned/Borrowed</option>
+            <option value="others">Miscellaneous</option>
+        </select>
+        <select id="incat" class="hide">
+          <option value="salary">Salary</option>
+          <option value="bonus">Bonus</option>
+          <option value="secinc">Secondary Income</option>
+          <option value="others">Miscellaneous Sources</option>
+      </select>
+      </div> 
+      <div class="field">
+        <label>Details:</label>
+        <input type="text" id="details">
+      </div>
+      <div class="field">
+        <label>Amount <span id="underline">(in INR)</span>(Rs):</label>
+        <input type="number" id="amount">
+      </div><br>
+      <button class="subbutt"><b>Add To Log</b></button>
+    </form>
+    <a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/home.html"><b>Back To Home</b></a>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+  <script src='expenses.js'></script>
+</body>
+</html>

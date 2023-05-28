@@ -1,0 +1,119 @@
+.b{
+    background-image: url("back.jpg");
+    object-fit:fill;
+}
+
+.b1{
+    background-color: rgb(49, 47, 47);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: rgb(255, 255, 255);
+    padding-left: 50px;
+    font-size: xx-large;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
+
+.b2{
+    background-color: rgb(49, 47, 47);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    height: 500px;
+}
+
+
+.b3{
+    color:rgb(255, 255, 255);
+    background-color:rgba(126, 141, 194, 0.393);
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    border-radius: 15px;
+    font-size: x-large;
+    border-style: inset;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    float:left;
+
+}
+
+.b4{
+    color:rgb(255, 255, 255);
+    background-color:rgba(126, 141, 194, 0.393);
+    margin-left: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    font-size: x-large;
+    border-style: inset;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    float:right;
+
+}
+
+.b5{background-color: black;
+    border-radius: 15px;
+    padding-bottom: 30px;
+    padding-top: 100px;
+    padding-left: 270px;
+    padding-right: 270px
+}
+
+.b6{
+    color:rgb(255, 255, 255);
+    background-color:rgba(126, 141, 194, 0.393);
+    margin-left: 300px;
+    margin-right: 300px;
+    margin-top: 270px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    font-size: x-large;
+    border-style: inset;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.703);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    font-size: x-large;
+    display: flex;
+    align-items: center;
+    
+}
+
+header * {
+    display: inline;
+}
+
+header li {
+    margin: 20px;
+}
+
+header li a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+header li a:hover{
+    color: rgb(255, 55, 0);
+  }

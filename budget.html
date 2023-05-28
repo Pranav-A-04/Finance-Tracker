@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="table.css">
+    <title>Expenses</title>
+</head>
+
+<body >
+    <div class="b1">
+        <br> Choose Category of Expense <br>  
+    </div>
+    <div class="b">
+        <div>
+            <input class="button" onclick="getall()" type="button" value="All" id="all">
+    
+            <input class="button" onclick="getgr()" type="button" id="groceries" value="Groceries">
+        
+            <input class="button" onclick="getfood()" type="button" id="food" value="Dining">
+    
+            <input class="button" onclick="gettr()" type="button" id="travel" value="Travel">
+    
+            <input class="button" onclick="getsub()" type="button" id="subscriptions" value="Subscriptions"> 
+    
+            <input class="button" onclick="getrent()" type="button" id="rent" value="Rent">
+            
+            <input class="button" onclick="getloan()" type="button" id="loan" value="Loan">
+    
+            <input class="button" onclick="getbills()" type="button" id="bills" value="Bills"> 
+    
+    
+            <input class="button" onclick="getot()" type="button" id="others" value="Others">
+            
+    
+        </div> 
+    </div>
+    
+    <br> List Income <br>  
+    <div>
+        <input class="button" onclick="getinc()" type="button" value="Income" id="all">
+        <input class="button" onclick="getrec()" type="button" id="others" value="To be Recieved">
+    </div> 
+    <br><br>
+    <div>
+        <div class="slider">
+            <p>What percentage of Income you would like to Save ? </p>
+            <div class="slidecontainer">
+                <input type="range" min="1" max="100" value="0" class="slider" id="myRange">
+                <p><span id="demo"></span> % </p>
+                <input class="button" onclick="calcper()" type="button" value="Enter" id="perc">
+            </div>
+        </div>
+    
+        <div class>
+            <table class="content-table">
+            <thead>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Amount</th>  
+            </thead>
+            <tbody id="tbody1"></tbody>
+           </table>
+        </div>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <script>
+
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+        output.innerHTML = this.value;
+
+        }
+
+        
+
+        var tbody = document.getElementById('tbody1');
+        function additem(category, description, amount){
+            let trow = document.createElement("tr");
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');     
+    
+            td1.innerHTML = category;
+            td2.innerHTML = description;
+            td3.innerHTML = amount;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+
+            tbody.appendChild(trow);
+    }
+
+    function addall(array){
+        tbody.innerHTML = "";
+        array.forEach(element => {
+            additem(element.category, element.details ,element.amount)
+            
+        });
+    }
+
+    function addlast(integer){
+        var table = document.getElementById("tbody1");
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        
+        cell1.innerHTML = "TOTAL";
+        cell2.innerHTML = integer;
+}
+    
+    
+  // Import the functions you need from the SDKs you need
+    
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyBp3_6EMBqSrcIltJnohON3UGc6ID9Mmfw",
+    authDomain: "customerlogin-eec4f.firebaseapp.com",
+    databaseURL: "https://customerlogin-eec4f-default-rtdb.firebaseio.com",
+    projectId: "customerlogin-eec4f",
+    storageBucket: "customerlogin-eec4f.appspot.com",
+    messagingSenderId: "726508662593",
+    appId: "1:726508662593:web:962e4bc86c02baac6c7bc0",
+    measurementId: "G-2PKKM43YE2"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+  /*import { getDatabase, ref, child, onValue, get}
+  from  "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";*/
+  const db = firebase.database();
+  var dbref = db.ref();
+  
+  function getall(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+            
+
+            snapshot.forEach(childSnapshot =>{
+                expense.push(childSnapshot.val());
+                sumval.push(childSnapshot.val().amount);
+                
+            })
+
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+        
+    }
+
+    function getrec(){
+        
+        dbref.child('received').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+            
+
+            snapshot.forEach(childSnapshot =>{
+                expense.push(childSnapshot.val());
+                sumval.push(childSnapshot.val().amount);
+                
+            })
+
+            console.log(expense)
+
+            addall(expense);
+            var sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+          
+        })
+    }
+
+    function calcper(){
+        var inc=0;
+        var rec = 0;
+        var spn = 0;
+        
+        dbref.child('received').get()
+        .then((snapshot)=>{
+            var recval=[];
+            
+            
+
+            snapshot.forEach(childSnapshot =>{
+                recval.push(childSnapshot.val().amount);
+                
+            })
+            
+            
+            for (let i = 0; i < recval.length; i++ ) {
+                rec += Number(recval[i]);
+                }
+            
+                dbref.child('spent').get()
+                    .then((snapshot)=>{
+                        var spnval=[];
+        
+                        snapshot.forEach(childSnapshot =>{
+                            spnval.push(childSnapshot.val().amount);
+                            
+                        })
+                
+                        
+                        for (let i = 0; i < spnval.length; i++ ) {
+                            spn += Number(spnval[i]);
+                            }
+                          
+                            dbref.child('income').get()
+                                .then((snapshot)=>{
+                                    var incval=[];
+                    
+                                    snapshot.forEach(childSnapshot =>{
+                                        incval.push(childSnapshot.val().amount);
+                                        
+                                    })
+                                    
+                                    for (let i = 0; i < incval.length; i++ ) {
+                                        inc += Number(incval[i]);
+                                        }
+                                        console.log(spn);
+                                        console.log(rec);
+                                        console.log(inc);
+                                        console.log(output.innerHTML)
+                                        var tot = inc+rec;
+                                        var percent = (tot)-(((output.innerHTML)/100)*(tot));
+                                        console.log(percent)
+                                        if(percent<spn){
+                                            alert("YOU HAVE REACHED YOUR LIMIT")
+                                        }
+                                        
+
+
+                                })  
+                    })    
+
+
+                
+        })    
+
+    }
+
+  
+
+    function getgr(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "groceries"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+            
+          
+        })
+    }
+
+    function getfood(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "dining"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+
+    function gettr(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "travel"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+
+    function getbills(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "bills"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+
+    function getot(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "others"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+
+    function getsub(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "subs"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+    function getrent(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "rent"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+    
+    function getloan(){
+        
+        dbref.child('spent').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+
+            snapshot.forEach(childSnapshot =>{
+                if (childSnapshot.val().category == "lent"){
+                    expense.push(childSnapshot.val());
+                    sumval.push(childSnapshot.val().amount);
+                }
+                
+            })
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+
+    function getinc(){
+        
+        dbref.child('income').get()
+        .then((snapshot)=>{
+            var expense =[];
+            var sumval=[];
+            
+
+            snapshot.forEach(childSnapshot =>{
+                expense.push(childSnapshot.val());
+                sumval.push(childSnapshot.val().amount);
+            })
+
+            addall(expense);
+            let sum=0;
+            for (let i = 0; i < sumval.length; i++ ) {
+                sum += Number(sumval[i]);
+                }
+
+            addlast(sum);
+          
+        })
+    }
+
+
+
+    window.onload=getall;
+
+
+</script>
+</body>
+</html>

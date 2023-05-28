@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax</title>
+    <link rel="stylesheet" href="tax.css">
+</head>
+<body class="b">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/home.html">Home</a></li>
+                <li><a href="file:///C:/Users/Pranav%20A/Desktop/finance%20logger/fin.html">Financial Insight</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="b1">
+        <b>Taxes</b>
+    </div>
+    <div id="form2" class="hide">
+        
+        <button class="closebutt" onclick="hidef2()"><b>X</b></button>
+        <table class="ct">
+            <thead>
+                <th>Category</th>
+                <th>Details</th>
+                <th>Amount</th>
+            </thead>
+            <tbody id="tb2">
+                
+            </tbody>
+        </table>
+    </div>
+    <div id="form1" class="hide">
+        <button class="closebutt" onclick="hidef1()"><b>X</b></button>
+        <table class="ct">
+            <thead>
+                <th>Category</th>
+                <th>Details</th>
+                <th>Amount</th>
+            </thead>
+            <tbody id="tb">
+
+            </tbody>
+        </table>
+        
+    </div>
+    <div id="form3" class="hide">
+        <button class="closebutt" onclick="hidef3()"><b>X</b></button>
+        <table class="ct">
+            <thead>
+                <th>Category</th>
+                <th>Details</th>
+                <th>Amount</th>
+            </thead>
+            <tbody id="tb3">
+                
+            </tbody>
+        </table>
+    </div>
+    <div id="form4" class="hide">
+        <button class="closebutt" onclick="hidef4()"><b>X</b></button>
+        <table class="ct">
+            <thead>
+                <th>Category</th>
+                <th>Details</th>
+                <th>Amount</th>
+            </thead>
+            <tbody id="tb4">
+                
+            </tbody>
+        </table>
+    </div>
+    <div class="b3">
+        <div class="b5" id="inc">
+            <a href="#form1" onclick="showf1()">click for further details</a>
+        </div>    
+         Income Tax
+    </div>
+    <div class="b4">
+        <div class="b5" id="prop">
+            <a href="#form2" onclick="showf2()">click for further details</a>
+        </div>  
+        Property Tax
+   </div>
+   <div class="b3">
+    <div class="b5" id="wealth">
+        <a href="#form3" onclick="showf3()">click for further details</a>
+    </div>  
+    Wealth Tax
+</div>
+<div class="b4">
+    <div class="b5" id="service">
+        <a href="#form4"  onclick="showf4()">click for further details</a>
+    </div>  
+   Service Tax
+</div>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script src="tax.js"></script>
+</body>
+</html>

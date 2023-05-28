@@ -1,0 +1,130 @@
+body {
+    font-family: sans-serif;
+    background-image: url("p1.jpg");
+  }
+
+table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    color: white;
+    background-color: black;
+    margin-left: auto;
+    opacity: 0.8;
+    float:right;
+    margin-right: 120px;
+}
+
+thead tr {
+    background-color: #ffffff;
+    color: #000000;
+    text-align: left;
+    font-weight: bold;
+}
+
+th,
+ td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #4f4f4f;
+}
+
+
+
+  /*buttons*/
+
+   .button {
+    background-color: #000000; /* Green */
+    border: 2px solid rgb(20, 164, 131);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    
+  }
+  
+  .button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  .button:hover {
+    background-color: #054e40;
+  }
+
+
+/*Radio
+
+.radio{
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.radio_input{
+    display: none;
+}
+.radio_label{
+    padding: 8px 14px;
+    font-size: 14px;
+    font-family: sans-serif;
+    color: #dddddd;
+    background: #009879;
+    cursor: pointer;
+    transition: 0.1s;
+
+}
+.radio_label:not(:last-of-type){
+    border-right:1px solid #024133;
+}
+.radio_input:checked + .radio_label{
+    background:#024133;
+}
+*/
+.b1{
+    background-color: rgb(90, 90, 90);
+    color: white;
+    border-radius: 15px;
+    font-family: 'Times New Roman', Times, serif;
+    padding-bottom: 20px;
+    font-size: xx-large;
+    padding-left: 30px;
+    margin-bottom: 20px;
+
+}
+.b{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    opacity: 0.6;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    margin-right: 120px;
+}
+.slider{
+    background-color: rgb(157, 157, 157);
+    padding-left: 20px;
+    padding-top: 20px;
+    border-radius: 15px;
+    float:left;
+    padding-right: 50px;
+    margin-left: 50px;
+    
+}
